@@ -1157,12 +1157,14 @@ impl Document {
     pub fn detect_indent_and_line_ending(&mut self) {
         self.indent_style = if let Some(indent_style) = self.editor_config.indent_style {
             indent_style
-        } else {
+        } else if self.config.load().auto_detect_indent {
             auto_detect_indent_style(&self.text).unwrap_or_else(|| {
                 self.language_config()
                     .and_then(|config| config.indent.as_ref())
                     .map_or(DEFAULT_INDENT, |config| IndentStyle::from_str(&config.unit))
             })
+        } else {
+            DEFAULT_INDENT
         };
         if let Some(line_ending) = self
             .editor_config
