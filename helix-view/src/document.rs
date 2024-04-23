@@ -42,7 +42,7 @@ use crate::{DocumentId, Editor, Theme, View, ViewId};
 /// 8kB of buffer space for encoding and decoding `Rope`s.
 const BUF_SIZE: usize = 8192;
 
-const DEFAULT_INDENT: IndentStyle = IndentStyle::Tabs;
+const DEFAULT_INDENT: IndentStyle = IndentStyle::Spaces(4);
 
 pub const DEFAULT_LANGUAGE_NAME: &str = "text";
 
