@@ -2674,7 +2674,7 @@ const WRITE_NO_FORMAT_FLAG: Flag = Flag {
 pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     TypableCommand {
         name: "quit",
-        aliases: &["q"],
+        aliases: &["q", "Q"],
         doc: "Close the current view.",
         fun: quit,
         completer: CommandCompleter::none(),
@@ -2685,7 +2685,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "quit!",
-        aliases: &["q!"],
+        aliases: &["q!",  "Q!"],
         doc: "Force close the current view, ignoring unsaved changes.",
         fun: force_quit,
         completer: CommandCompleter::none(),
@@ -2696,7 +2696,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "open",
-        aliases: &["o", "edit", "e"],
+        aliases: &["o", "O", "edit", "e", "E"],
         doc: "Open a file from disk into the current view.",
         fun: open,
         completer: CommandCompleter::all(completers::filename),
@@ -2789,7 +2789,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write",
-        aliases: &["w"],
+        aliases: &["w", "W"],
         doc: "Write changes to disk. Accepts an optional path (:write some/path.txt)",
         fun: write,
         completer: CommandCompleter::positional(&[completers::filename]),
@@ -2801,7 +2801,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write!",
-        aliases: &["w!"],
+        aliases: &["w!", "W!"],
         doc: "Force write changes to disk creating necessary subdirectories. Accepts an optional path (:write! some/path.txt)",
         fun: force_write,
         completer: CommandCompleter::positional(&[completers::filename]),
@@ -2906,7 +2906,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-quit",
-        aliases: &["wq", "x"],
+        aliases: &["wq", "x", "Wq", "WQ", "X"],
         doc: "Write changes to disk and close the current view. Accepts an optional path (:wq some/path.txt)",
         fun: write_quit,
         completer: CommandCompleter::positional(&[completers::filename]),
@@ -2918,7 +2918,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-quit!",
-        aliases: &["wq!", "x!"],
+        aliases: &["wq!", "x!", "Wq!", "WQ!", "X!"],
         doc: "Write changes to disk and close the current view forcefully. Accepts an optional path (:wq! some/path.txt)",
         fun: force_write_quit,
         completer: CommandCompleter::positional(&[completers::filename]),
@@ -2930,7 +2930,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-all",
-        aliases: &["wa"],
+        aliases: &["wa", "Wa", "WA"],
         doc: "Write changes from all buffers to disk.",
         fun: write_all,
         completer: CommandCompleter::none(),
@@ -2942,7 +2942,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-all!",
-        aliases: &["wa!"],
+        aliases: &["wa!", "Wa!", "WA!"],
         doc: "Forcefully write changes from all buffers to disk creating necessary subdirectories.",
         fun: force_write_all,
         completer: CommandCompleter::none(),
@@ -2954,7 +2954,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-quit-all",
-        aliases: &["wqa", "xa"],
+        aliases: &["wqa", "xa", "Wqa", "WQa", "WQA", "Xa", "XA"],
         doc: "Write changes from all buffers to disk and close all views.",
         fun: write_all_quit,
         completer: CommandCompleter::none(),
@@ -2966,7 +2966,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "write-quit-all!",
-        aliases: &["wqa!", "xa!"],
+        aliases: &["wqa!", "xa!", "Wqa!", "WQa!", "WQA!", "Xa!", "XA!"],
         doc: "Write changes from all buffers to disk and close all views forcefully (ignoring unsaved changes).",
         fun: force_write_all_quit,
         completer: CommandCompleter::none(),
@@ -2978,7 +2978,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "quit-all",
-        aliases: &["qa"],
+        aliases: &["qa", "Qa", "QA"],
         doc: "Close all views.",
         fun: quit_all,
         completer: CommandCompleter::none(),
@@ -2989,7 +2989,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
     },
     TypableCommand {
         name: "quit-all!",
-        aliases: &["qa!"],
+        aliases: &["qa!", "Qa!", "QA!"],
         doc: "Force close all views ignoring unsaved changes.",
         fun: force_quit_all,
         completer: CommandCompleter::none(),
