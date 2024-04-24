@@ -515,6 +515,7 @@ impl MappableCommand {
         toggle_comments, "Comment/uncomment selections",
         toggle_line_comments, "Line comment/uncomment selections",
         toggle_block_comments, "Block comment/uncomment selections",
+        reflow, "same as :reflow (custom, added by bruno)",
         rotate_selections_forward, "Rotate selections forward",
         rotate_selections_backward, "Rotate selections backward",
         rotate_selection_contents_forward, "Rotate selection contents forward",
@@ -5283,6 +5284,34 @@ fn toggle_block_comments(cx: &mut Context) {
             comment::toggle_block_comments(doc, selection, block_comment_tokens)
         }
     });
+}
+
+fn reflow(cx: &mut Context) {
+    let scrolloff = cx.editor.config().scrolloff;
+    let cfg_text_width: usize = cx.editor.config().text_width;
+    let (view, doc) = current!(cx.editor);
+
+    // Find the text_width by checking the following sources in order:
+    //   - The configured text-width for this language in languages.toml
+    //   - The configured text-width in the config.toml
+    let text_width: usize = doc
+        .language_config()
+        .and_then(|config| config.text_width)
+        .unwrap_or(cfg_text_width);
+
+    let rope = doc.text();
+
+    let selection = doc.selection(view.id);
+    let transaction = Transaction::change_by_selection(rope, selection, |range| {
+        let fragment = range.fragment(rope.slice(..));
+        let reflowed_text = helix_core::wrap::reflow_hard_wrap(&fragment, text_width);
+
+        (range.from(), range.to(), Some(reflowed_text))
+    });
+
+    doc.apply(&transaction, view.id);
+    doc.append_changes_to_history(view);
+    view.ensure_cursor_in_view(doc, scrolloff);
 }
 
 fn rotate_selections(cx: &mut Context, direction: Direction) {
