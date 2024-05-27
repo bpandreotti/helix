@@ -5211,6 +5211,7 @@ fn toggle_block_comments(cx: &mut Context) {
 }
 
 fn reflow(cx: &mut Context) {
+    extend_to_line_bounds(cx);
     let scrolloff = cx.editor.config().scrolloff;
     let cfg_text_width: usize = cx.editor.config().text_width;
     let (view, doc) = current!(cx.editor);
