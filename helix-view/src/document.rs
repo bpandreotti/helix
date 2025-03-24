@@ -1158,13 +1158,11 @@ impl Document {
         self.indent_style = if let Some(indent_style) = self.editor_config.indent_style {
             indent_style
         } else if self.config.load().auto_detect_indent {
-            auto_detect_indent_style(&self.text).unwrap_or_else(|| {
-                self.language_config()
-                    .and_then(|config| config.indent.as_ref())
-                    .map_or(DEFAULT_INDENT, |config| IndentStyle::from_str(&config.unit))
-            })
+            auto_detect_indent_style(&self.text).unwrap_or(DEFAULT_INDENT)
         } else {
-            DEFAULT_INDENT
+            self.language_config()
+                .and_then(|config| config.indent.as_ref())
+                .map_or(DEFAULT_INDENT, |config| IndentStyle::from_str(&config.unit))
         };
         if let Some(line_ending) = self
             .editor_config
